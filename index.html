@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal - FIND YOUR BRAND</title>
+  <title>Personal-Fashion Archive</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.6/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -21,7 +21,12 @@
     <div class="header-right">
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="검색..." class="search-input">
-        <button class="search-btn" onclick="app.search()">검색</button>
+        <button class="search-btn" onclick="app.search()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
       </div>
       <button class="menu-toggle" onclick="app.toggleMenu()">☰ 메뉴</button>
       <div class="menu-dropdown" id="menuDropdown">
@@ -35,11 +40,11 @@
     <!-- Home Page -->
     <section id="home-page" class="page">
       <div class="home-hero">
-        <h1>Find your brand</h1>
-        <p>브랜드 컬렉션을 한눈에 감상하세요</p>
+        <h1>Find your style</h1>
+        <p>다양한 패션 스타일을 탐색하세요</p>
       </div>
       <div class="recommended-section">
-        <h2>추천 컬렉션</h2>
+        <h2>추천 스타일</h2>
         <div class="collection-grid" id="recommendedCollections"></div>
       </div>
     </section>
@@ -47,29 +52,21 @@
     <!-- Category Page -->
     <section id="category-page" class="page hidden">
       <div class="category-header">
-        <h2>브랜드 카테고리</h2>
+        <h2>Find your style</h2>
       </div>
       <div class="gallery-grid" id="categoryGallery"></div>
     </section>
 
     <!-- Collection Page -->
     <section id="collection-page" class="page hidden">
+  </div>
+</div>
       <div class="recent-collection-message" id="recentCollectionMsg" style="display:none;"></div>
       <div class="collection-header">
         <button class="back-btn" onclick="app.navigate('category')">← 돌아가기</button>
         <div class="collection-info">
           <h2 id="collectionTitle"></h2>
-          <a id="officialSite" class="official-link" target="_blank">공식 웹사이트</a>
         </div>
-      </div>
-      <div class="collection-filters">
-        <label>연도별 필터:</label>
-        <select id="yearFilter" onchange="app.filterByYear()">
-          <option value="">모든 연도</option>
-          <option value="2025">2025</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-        </select>
       </div>
       <div class="collection-grid" id="collectionItems"></div>
     </section>
@@ -77,8 +74,16 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>© 2025 personal</p>
+    <p>© 2025 personal. All Rights Reserved.</p>
   </footer>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="app.closeImageModal()">&times;</span>
+      <img id="modalImage" src="" alt="확대 이미지">
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
