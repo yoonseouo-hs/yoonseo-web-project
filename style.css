@@ -448,68 +448,57 @@ body {
 
 /* Image Modal */
 .image-modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.image-modal.show {
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
 }
 
-.image-modal .modal-content {
+.image-modal.hidden {
+  display: none;
+}
+
+.modal-content {
   position: relative;
-  max-width: 90%;
+  max-width: 90vw;
   max-height: 90vh;
-  animation: zoomIn 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.image-modal img {
-  width: 100%;
-  height: auto;
-  max-height: 85vh;
+.modal-content img {
+  max-width: 100%;
+  max-height: 90vh;
   object-fit: contain;
   border-radius: 8px;
 }
 
 .modal-close {
   position: absolute;
-  top: -40px;
-  right: 0;
-  font-size: 40px;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
   color: white;
+  font-size: 28px;
   cursor: pointer;
-  transition: color 0.3s;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
 }
 
 .modal-close:hover {
-  color: #ccc;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  background: rgba(255, 255, 255, 0.3);
 }

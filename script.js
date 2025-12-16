@@ -504,17 +504,7 @@ const app = {
         `<div class="item-card-img">✓</div>`;
       
       card.innerHTML = cardHTML;
-      card.style.cursor = 'pointer';
-      
-      // 배경 이미지 URL 추출 및 클릭 이벤트 추가
-      if (backgroundStyle && backgroundStyle.includes('url(')) {
-        const urlMatch = backgroundStyle.match(/url\((.*?)\)/);
-        if (urlMatch && urlMatch[1]) {
-          const imageUrl = urlMatch[1].replace(/['"]/g, '');
-          card.onclick = () => app.openImageModal(imageUrl);
-        }
-      }
-      
+      card.onclick = () => this.openImageModal(backgroundStyle);
       cardsGrid.appendChild(card);
     });
     
@@ -629,17 +619,7 @@ const app = {
       card.innerHTML = `
         <div class="item-card-img" style="${backgroundStyle}"></div>
       `;
-      card.style.cursor = 'pointer';
-      
-      // 배경 이미지 URL 추출 및 클릭 이벤트 추가
-      if (backgroundStyle && backgroundStyle.includes('url(')) {
-        const urlMatch = backgroundStyle.match(/url\((.*?)\)/);
-        if (urlMatch && urlMatch[1]) {
-          const imageUrl = urlMatch[1].replace(/['"]/g, '');
-          card.onclick = () => app.openImageModal(imageUrl);
-        }
-      }
-      
+      card.onclick = () => this.openImageModal(backgroundStyle);
       cardsGrid.appendChild(card);
     });
     
@@ -754,17 +734,7 @@ const app = {
       card.innerHTML = `
         <div class="item-card-img" style="${backgroundStyle}"></div>
       `;
-      card.style.cursor = 'pointer';
-      
-      // 배경 이미지 URL 추출 및 클릭 이벤트 추가
-      if (backgroundStyle && backgroundStyle.includes('url(')) {
-        const urlMatch = backgroundStyle.match(/url\((.*?)\)/);
-        if (urlMatch && urlMatch[1]) {
-          const imageUrl = urlMatch[1].replace(/['"]/g, '');
-          card.onclick = () => app.openImageModal(imageUrl);
-        }
-      }
-      
+      card.onclick = () => this.openImageModal(backgroundStyle);
       cardsGrid.appendChild(card);
     });
     
@@ -798,17 +768,7 @@ const app = {
     extraCard.innerHTML = `
       <div class="item-card-img" style="${extraBackgroundStyle}"></div>
     `;
-    extraCard.style.cursor = 'pointer';
-    
-    // 추가 카드 배경 이미지 URL 추출 및 클릭 이벤트 추가
-    if (extraBackgroundStyle && extraBackgroundStyle.includes('url(')) {
-      const urlMatch = extraBackgroundStyle.match(/url\((.*?)\)/);
-      if (urlMatch && urlMatch[1]) {
-        const imageUrl = urlMatch[1].replace(/['"]/g, '');
-        extraCard.onclick = () => app.openImageModal(imageUrl);
-      }
-    }
-    
+    extraCard.onclick = () => this.openImageModal(extraBackgroundStyle);
     cardsGrid.appendChild(extraCard);
     
     container.appendChild(cardsGrid);
@@ -885,17 +845,36 @@ const app = {
   },
 
   // 이미지 모달 열기
-  openImageModal(imageUrl) {
+  openImageModal(backgroundStyle) {
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
-    modalImage.src = imageUrl;
-    modal.classList.add('show');
+    
+    // background-image URL 추출
+    const urlMatch = backgroundStyle.match(/url\(['"]?([^'"]+)['"]?\)/);
+    if (urlMatch && urlMatch[1]) {
+      modalImage.src = urlMatch[1];
+      modal.classList.remove('hidden');
+      
+      // 모달 배경 클릭 시 닫기
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          this.closeImageModal();
+        }
+      });
+      
+      // ESC 키 누르면 닫기
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          this.closeImageModal();
+        }
+      });
+    }
   },
 
   // 이미지 모달 닫기
   closeImageModal() {
     const modal = document.getElementById('imageModal');
-    modal.classList.remove('show');
+    modal.classList.add('hidden');
   }
 };
 
@@ -911,13 +890,5 @@ document.addEventListener('click', (e) => {
   
   if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
     menu.classList.remove('show');
-  }
-});
-
-// 모달 외부 클릭 시 닫기
-document.addEventListener('click', (e) => {
-  const modal = document.getElementById('imageModal');
-  if (e.target === modal) {
-    app.closeImageModal();
   }
 });
